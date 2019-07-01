@@ -1,0 +1,102 @@
+<p-toast></p-toast>
+
+<p-panel header="LISTA DE PRODUTOS" [toggleable]="false">
+	
+
+  <p-table [value]="produtoList">
+        <ng-template pTemplate="caption">
+      	  <div class="ui-helper-clearfix" style="text-align:left">
+            <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+      	  </div>
+        </ng-template> 
+	    <ng-template pTemplate="header">
+			<tr>
+				<th>Codigo</th>
+				<th>Nome</th>         
+				<th>Descricao</th>   
+				<th>Imagem</th>
+				<th>Cod. de Barras</th>       
+				<th>Caracteristicas</th>     
+				<th>Un. Medida</th>
+				<th></th>
+				<th></th>
+			</tr>
+        </ng-template>
+		<ng-template pTemplate="body" let-prod>
+				<tr>
+					<td>{{prod.codigo}}</td>
+					<td>{{prod.nome}}</td>
+					<td>{{prod.descricao}}</td>
+					<td><img src="assets/images/produtos/{{prod.imagem}}"/></td>
+					<td>{{prod.codigo_barras}}</td>
+					<td>{{prod.caracteristicas}}</td>
+					<td>{{prod.unidades_medida}}</td>
+					<td style="text-align:center">
+						<button pButton type="button" icon="pi pi-pencil" (click)="selectedProduto(prod)" class="ui-button-info"></button>
+					</td>
+					<td style="text-align:center">
+						<button pButton type="button" icon="pi pi-trash" (click)="deleteProduto(prod)" class="ui-button-danger"></button>
+					</td>
+				</tr>
+		</ng-template>
+		 
+</p-table>
+
+</p-panel>
+<div *ngIf="produto">
+
+<p-dialog header="Produto" [(visible)]="display" [style]="{width: '500px', height: '600px'}">
+<div>
+	<form>		
+         <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="produtoCodigo">Codigo</label></div>
+                <div class="ui-grid-col-8"><input id="produtoCodigo" type="text" size="50" pInputText [(ngModel)]="produto.codigo" name="codigo"> </div>
+			</div>
+			<div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="produtoNome">Nome</label></div>
+                <div class="ui-grid-col-8"><input id="produtoNome" type="text" size="50" pInputText [(ngModel)]="produto.nome" name="nome"> </div>
+			</div>
+
+			<div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="produtoDescricao">Descricao</label></div>
+                <div class="ui-grid-col-8"><textarea id="produtoDescricao" [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" pInputText [(ngModel)]="produto.descricao" name="descricao"></textarea> </div>
+			</div>
+			<div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="produtoImagem">Imagem</label></div>
+				<div class="ui-grid-col-8"> 
+					<input id="produtoImagem" type="hidden" size="70" pInputText [(ngModel)]="produto.imagem" name="imagem"> 
+			    	<p-fileUpload mode="basic" name="demo[]" url="assets/images/produtos/" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
+				</div>
+			
+
+			</div>
+			<div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="produtoCodigo_barras">Cod. de Barras</label></div>
+                <div class="ui-grid-col-8"><input id="produtoCodigo_barras" type="text" size="50" pInputText [(ngModel)]="produto.codigo_barras" name="codigo_barras"> </div>
+			</div>
+			<div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="produtoCaracteristicas">Caracteristicas</label></div>
+                <div class="ui-grid-col-8"><input id="produtoCaracteristicas" type="text" size="50" pInputText [(ngModel)]="produto.caracteristicas" name="caracteristicas"> </div>
+			</div>
+			<div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="produtoUnidades_medida">Un. Medida</label></div>
+                <div class="ui-grid-col-8"><input id="produtoUnidades_medida" type="text" size="50" pInputText [(ngModel)]="produto.unidades_medida" name="unidades_medida"> </div>
+            </div>
+        </div>
+
+
+	</form>
+</div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+			<button type="button" pButton icon="fa fa-check" class="ui-button-success" (click)="saveProduto()" label="Save"></button>
+            <button type="button" pButton icon="fa fa-close" class="ui-button-danger" (click)="cancelSaveProduto()" label="Cancel"></button>            
+        </div>
+	</p-footer>
+	
+</p-dialog>
+</div>
+<div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+</div>

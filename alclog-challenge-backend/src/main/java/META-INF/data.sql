@@ -1,0 +1,5 @@
+INSERT into produto (id, nome, CODIGO, DESCRICAO, IMAGEM, CODIGO_BARRAS, CARACTERISTICAS, UNIDADES_MEDIDA) values (1,'Luke Skywalker','FF453677','Boneco','/src/g.jpg','19BBY','blue','19BBY');
+INSERT into produto (id, nome, CODIGO, DESCRICAO, IMAGEM, CODIGO_BARRAS, CARACTERISTICAS, UNIDADES_MEDIDA) values (2,'Dart Vader','FF453677','Boneco','/src/g.jpg','19BBY','blue','19BBY');
+INSERT into produto (id, nome, CODIGO, DESCRICAO, IMAGEM, CODIGO_BARRAS, CARACTERISTICAS, UNIDADES_MEDIDA) values (3,'Han Solo','FF453677','Boneco','/src/g.jpg','19BBY','blue','19BBY');
+INSERT into produto (id, nome, CODIGO, DESCRICAO, IMAGEM, CODIGO_BARRAS, CARACTERISTICAS, UNIDADES_MEDIDA) values (4,'Leia','FF453677','Boneco','/src/g.jpg','19BBY','blue','19BBY');
+INSERT into produto (id, nome, CODIGO, DESCRICAO, IMAGEM, CODIGO_BARRAS, CARACTERISTICAS, UNIDADES_MEDIDA) values (5,'Chewbacca','FF453677','Boneco','/src/g.jpg','19BBY','blue','19BBY');
