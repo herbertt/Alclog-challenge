@@ -1,3 +1,6 @@
+import { Caracteristica } from './caracteristica';
+import { Unidade } from './unidade';
+
 export class Produto {
     id: number;
     codigo: string;
@@ -5,6 +8,6 @@ export class Produto {
     descricao: string;
     imagem: string;
     codigo_barras: string;
-    caracteristicas: string;
-    unidades_medida: string;
+    caracteristicas: Caracteristica[];
+    unidades: Unidade[];
 }

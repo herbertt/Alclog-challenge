@@ -76,9 +76,9 @@ public abstract class AbstractFacade<T> {
 	}
 
 	public List<T> findAll() {
-		//CriteriaQuery<Object> cq = getEntityManager().getCriteriaBuilder().createQuery();
-		//cq.select(cq.from(entityClass));
-		List<T> list = this.all(); //(List<T>) getEntityManager().createQuery(cq).getResultList(); 
+		CriteriaQuery<Object> cq = getEntityManager().getCriteriaBuilder().createQuery();
+		cq.select(cq.from(entityClass));
+		List<T> list = (List<T>) getEntityManager().createQuery(cq).getResultList(); //this.all(); 
 		EntityManagerHelper.closeEntityManager();
 		return list;
 	}

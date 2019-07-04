@@ -1,6 +1,6 @@
 package com.alclog.challenge.services;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,8 +16,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.alclog.challenge.model.Caracteristica;
 import com.alclog.challenge.model.EntityManagerHelper;
 import com.alclog.challenge.model.Produto;
+import com.alclog.challenge.util.Util;
 
 @Path("/v1/produto")
 public class ProdutoFacedeREST extends AbstractFacade<Produto> {
@@ -32,23 +34,21 @@ public class ProdutoFacedeREST extends AbstractFacade<Produto> {
 	@PUT
 	@Override
 	@Consumes({ "application/xml", "application/json" })
-	public Response create(Produto entity) {
-		if (entity.getNome().length() <= 3) {
-			return Response.status(Status.CONFLICT).entity("Customer name is too short").type(MediaType.TEXT_PLAIN).build();
-		}
-		return super.edit(entity);
-	}
-	
-	@POST
-	@Override
-	@Consumes({ "application/xml", "application/json" })
 	public Response edit(Produto entity) {
 		if (entity.getNome().length() <= 3) {
 			return Response.status(Status.CONFLICT).entity("Customer name is too short").type(MediaType.TEXT_PLAIN).build();
 		}
 		return super.edit(entity);
 	}
-	
+	@POST
+	@Override
+	@Consumes({ "application/xml", "application/json" })
+	public Response create(Produto entity) {
+		if (entity.getNome().length() <= 3) {
+			return Response.status(Status.CONFLICT).entity("Customer name is too short").type(MediaType.TEXT_PLAIN).build();
+		}
+		return super.edit(entity);
+	}
 	@DELETE
 	@Path("remove/{id}")
 	public Response remove(@PathParam("id") Integer id) {
@@ -66,7 +66,7 @@ public class ProdutoFacedeREST extends AbstractFacade<Produto> {
 	@Override
 	@Produces({ "application/json" })
 	public List<Produto> findAll() {
-		return super.findAll();
+		return super.findAll();//Util.pesistenceBagConverter(super.findAll());	
 	}
 	
 	@GET

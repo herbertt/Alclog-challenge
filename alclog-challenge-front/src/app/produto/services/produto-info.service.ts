@@ -17,7 +17,8 @@ export class ProdutoInfoService {
   }
 
   saveProdutos(produto: Produto){
-    const body = JSON.stringify(produto)
+	const body = JSON.stringify(produto);
+	alert("POST JSON is => "+ body);
     return this.http.post<any>(this.webApiUrl,body,httpOptions);
   }
 

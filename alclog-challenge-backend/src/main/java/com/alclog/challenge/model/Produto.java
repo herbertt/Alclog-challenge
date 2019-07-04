@@ -2,12 +2,23 @@ package com.alclog.challenge.model;
 
 
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "PRODUTO")
@@ -20,7 +31,6 @@ public class Produto implements java.io.Serializable {
 	@Column(name = "codigo")
     private String codigo;
 	
-
     @Column(name = "nome")
     private String nome;
 	
@@ -31,25 +41,25 @@ public class Produto implements java.io.Serializable {
     private String imagem;
 	
 	@Column(name = "codigo_barras")
-    private String codigo_barras;
+    private String codigo_barras;	
 	
-	@Column(name = "caracteristicas")
-    private String caracteristicas;
-	 
-	@Column(name = "unidades_medida")
-    private String unidades_medida;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "produto", orphanRemoval = true)
+	@Fetch(org.hibernate.annotations.FetchMode.SUBSELECT)
+	@JsonManagedReference
+	private Set<Caracteristica> caracteristicas = new HashSet<Caracteristica>();
 	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "produto", orphanRemoval = true)
+	@Fetch(org.hibernate.annotations.FetchMode.SUBSELECT)
+	@JsonManagedReference
+	private Set<Unidade> unidades = new HashSet<Unidade>();
 	
-
 	public Produto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 	public Produto(Long id, String codigo, String nome, String descricao, String imagem, String codigo_barras,
-			String caracteristicas, String unidades_medida) {
+			Set<Caracteristica> caracteristicas, Set<Unidade> unidades) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
@@ -58,10 +68,8 @@ public class Produto implements java.io.Serializable {
 		this.imagem = imagem;
 		this.codigo_barras = codigo_barras;
 		this.caracteristicas = caracteristicas;
-		this.unidades_medida = unidades_medida;
+		this.unidades = unidades;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -111,22 +119,22 @@ public class Produto implements java.io.Serializable {
 		this.codigo_barras = codigo_barras;
 	}
 
-	public String getCaracteristicas() {
+	public Set<Caracteristica> getCaracteristicas() {
 		return caracteristicas;
 	}
 
-	public void setCaracteristicas(String caracteristicas) {
+	public void setCaracteristicas(Set<Caracteristica> caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
 
-	public String getUnidades_medida() {
-		return unidades_medida;
+	public Set<Unidade> getUnidades() {
+		return unidades;
 	}
 
-	public void setUnidades_medida(String unidades_medida) {
-		this.unidades_medida = unidades_medida;
+	public void setUnidades(Set<Unidade> unidades) {
+		this.unidades = unidades;
 	}
-	
+
 	
 	
 }
